@@ -1,10 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-// TODO: Add jumpscare sound
-// Example: import jumpscareSound from './assets/jumpscare.mp3';
-// Then create: const audioRef = useRef(new Audio(jumpscareSound));
-// Play in jumpscare trigger: audioRef.current.play();
+// Import all assets
+import spillAudio from './assets/Spill.m4a';
+import footstepsAudio from './assets/Footsteps.m4a';
+import oldmanImg from './assets/oldman.jpg';
+import righthandImg from './assets/righthand.png';
+import smokeleftImg from './assets/smokinghand-removebg-preview.png';
+import thumbsupImg from './assets/thumsupp-removebg-preview.png';
+import exitImg from './assets/exit.png';
+import tvImg from './assets/tv.jpg';
+import jumpscareImg from './assets/jumscare.jpg';
+import wallImg from './assets/wall.jpg';
 
 export default function LiminalMallCollector() {
   const canvasRef = useRef(null);
@@ -58,7 +65,7 @@ export default function LiminalMallCollector() {
 
     // Background audio (looped) - Spill.m4a in assets
     try {
-      audioRef.current = new Audio('/src/assets/Spill.m4a');
+      audioRef.current = new Audio(spillAudio);
       audioRef.current.loop = true;
       audioRef.current.volume = 0.30; // moderate volume
       // Do not auto-play here; will attempt playback when game becomes active
@@ -69,7 +76,7 @@ export default function LiminalMallCollector() {
 
     // Footsteps audio (plays while moving)
     try {
-      footRef.current = new Audio('/src/assets/Footsteps.m4a');
+      footRef.current = new Audio(footstepsAudio);
       footRef.current.loop = true;
       footRef.current.volume = 0.7;
     } catch (e) {
@@ -168,7 +175,7 @@ export default function LiminalMallCollector() {
 
     // Load wall texture
     const wallTextureLoader = new THREE.TextureLoader();
-    const wallTexture = wallTextureLoader.load('/src/assets/wall.jpg');
+    const wallTexture = wallTextureLoader.load(wallImg);
     wallTexture.wrapS = THREE.RepeatWrapping;
     wallTexture.wrapT = THREE.RepeatWrapping;
     wallTexture.magFilter = THREE.NearestFilter;
@@ -289,7 +296,7 @@ export default function LiminalMallCollector() {
     
     // Create EXIT door sprite
     const exitTextureLoader = new THREE.TextureLoader();
-    const exitTexture = exitTextureLoader.load('/src/assets/exit.png');
+    const exitTexture = exitTextureLoader.load(exitImg);
     exitTexture.magFilter = THREE.NearestFilter;
     exitTexture.minFilter = THREE.NearestFilter;
     
@@ -314,7 +321,7 @@ export default function LiminalMallCollector() {
     // Scary entity - load old man image as billboard sprite
     function createEntity() {
       const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load('/src/assets/oldman.jpg');
+      const texture = textureLoader.load(oldmanImg);
       texture.magFilter = THREE.NearestFilter;
       texture.minFilter = THREE.NearestFilter;
       
@@ -341,15 +348,15 @@ export default function LiminalMallCollector() {
     // Player's hand sprite - attached to camera
     // Load all hand textures
     const textureLoader = new THREE.TextureLoader();
-    const rightHandTexture = textureLoader.load('/src/assets/righthand.png');
+    const rightHandTexture = textureLoader.load(righthandImg);
     rightHandTexture.magFilter = THREE.NearestFilter;
     rightHandTexture.minFilter = THREE.NearestFilter;
 
-    const smokeLeftTexture = textureLoader.load('/src/assets/smokinghand-removebg-preview.png');
+    const smokeLeftTexture = textureLoader.load(smokeleftImg);
     smokeLeftTexture.magFilter = THREE.NearestFilter;
     smokeLeftTexture.minFilter = THREE.NearestFilter;
 
-    const thumbsUpTexture = textureLoader.load('/src/assets/thumsupp-removebg-preview.png');
+    const thumbsUpTexture = textureLoader.load(thumbsupImg);
     thumbsUpTexture.magFilter = THREE.NearestFilter;
     thumbsUpTexture.minFilter = THREE.NearestFilter;
     
@@ -378,7 +385,7 @@ export default function LiminalMallCollector() {
     // TV in the middle of the map
     function createTV() {
       const textureLoader = new THREE.TextureLoader();
-      const tvTexture = textureLoader.load('/src/assets/tv.jpg');
+      const tvTexture = textureLoader.load(tvImg);
       tvTexture.magFilter = THREE.NearestFilter;
       tvTexture.minFilter = THREE.NearestFilter;
       
@@ -1328,7 +1335,7 @@ export default function LiminalMallCollector() {
           background: 'rgba(4,4,6,0.6)'
         }}>
           <img 
-            src="/src/assets/jumscare.jpg"
+            src={jumpscareImg}
             alt=""
             style={{
               width: `${40 + (jumpscareIntensity * 40)}%`,
